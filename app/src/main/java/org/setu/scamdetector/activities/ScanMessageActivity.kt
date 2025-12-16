@@ -35,11 +35,7 @@ class ScanMessageActivity : AppCompatActivity() {
             val message = binding.messageInput.text.toString()
 
             if (message.isNotEmpty()) {
-                Toast.makeText(
-                    this,
-                    "Analyzing: $message",
-                    Toast.LENGTH_LONG
-                ).show()
+                binding.resultLabel.text = "⚠️ Likely Scam"
             } else {
                 Snackbar
                     .make(it, "Please enter a message to scan", Snackbar.LENGTH_LONG)
