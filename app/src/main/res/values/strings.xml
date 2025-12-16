@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">ScamDetector</string>
+    <string name="button_addScam">Add Scam</string>
+    <string name="hint_scamTitle">Scam Title</string>
+    <string name="hint_scamDescription">Description </string>
+    <string name="menu_addScam">Add</string>
+    <string name="menu_cancelScam">Cancel</string>
+</resources>
