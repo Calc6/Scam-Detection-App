@@ -23,7 +23,7 @@ object ScamDetector {
 
         val reasons = mutableListOf<String>()
         if (matchedKeywords.isNotEmpty())
-            reasons.add("Contains scam-related keywords")
+            reasons.add("The Message contains suspicious wording ")
         if (hasLink)
             reasons.add("Contains a suspicious link")
 

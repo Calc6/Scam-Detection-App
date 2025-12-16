@@ -9,6 +9,7 @@ import com.google.android.material.snackbar.Snackbar
 import org.setu.scamdetector.R
 import org.setu.scamdetector.databinding.ActivityScanMessageBinding
 import org.setu.scamdetector.main.ScamDetectorApp
+import org.setu.scamdetector.models.ScamDetector
 import org.setu.scamdetector.models.ScanResultModel
 import timber.log.Timber
 
@@ -35,13 +36,17 @@ class ScanMessageActivity : AppCompatActivity() {
             val message = binding.messageInput.text.toString()
 
             if (message.isNotEmpty()) {
-                val result = org.setu.scamdetector.models.ScamDetector.analyzeMessage(message)
+                val result = ScamDetector.analyzeMessage(message)
 
                 if (result.isScam) {
                     binding.resultLabel.text = "Likely Scam (${result.score}%)"
                 } else {
                     binding.resultLabel.text = "Likely Safe (${result.score}%)"
                 }
+                binding.reasonsLabel.text = result.reasons.joinToString(
+                    separator = "\n• ",
+                    prefix = "• "
+                )
             } else {
                 Snackbar
                     .make(it, "Please enter a message to scan", Snackbar.LENGTH_LONG)
