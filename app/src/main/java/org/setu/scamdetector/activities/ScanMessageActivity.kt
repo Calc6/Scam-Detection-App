@@ -35,7 +35,13 @@ class ScanMessageActivity : AppCompatActivity() {
             val message = binding.messageInput.text.toString()
 
             if (message.isNotEmpty()) {
-                binding.resultLabel.text = "⚠️ Likely Scam"
+                val result = org.setu.scamdetector.models.ScamDetector.analyzeMessage(message)
+
+                if (result.isScam) {
+                    binding.resultLabel.text = "Likely Scam (${result.score}%)"
+                } else {
+                    binding.resultLabel.text = "Likely Safe (${result.score}%)"
+                }
             } else {
                 Snackbar
                     .make(it, "Please enter a message to scan", Snackbar.LENGTH_LONG)
