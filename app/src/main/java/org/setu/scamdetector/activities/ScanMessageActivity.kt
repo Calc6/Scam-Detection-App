@@ -32,19 +32,14 @@ class ScanMessageActivity : AppCompatActivity() {
         Timber.i("ScanMessageActivity started")
 
         binding.analyzeButton.setOnClickListener {
-            Toast.makeText(
-                this,
-                "Analyzing message...",
-                Toast.LENGTH_SHORT
-            ).show()
+            val message = binding.messageInput.text.toString()
 
-            scan.title = binding.messageInput.text.toString()
-
-            if (!scan.title.isNullOrEmpty()) {
-                app.scams.create(scan.copy())
-                Timber.i("Scan saved: $scan")
-                setResult(RESULT_OK)
-                finish()
+            if (message.isNotEmpty()) {
+                Toast.makeText(
+                    this,
+                    "Analyzing: $message",
+                    Toast.LENGTH_LONG
+                ).show()
             } else {
                 Snackbar
                     .make(it, "Please enter a message to scan", Snackbar.LENGTH_LONG)
