@@ -34,7 +34,7 @@ class ScanHistoryActivity : AppCompatActivity(), ScamListener {
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
-        menuInflater.inflate(R.menu.menu_scan, menu)
+        menuInflater.inflate(R.menu.menu_scan_history, menu)
         return super.onCreateOptionsMenu(menu)
     }
 

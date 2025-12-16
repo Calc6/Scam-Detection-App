@@ -3,6 +3,7 @@ package org.setu.scamdetector.activities
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.google.android.material.snackbar.Snackbar
 import org.setu.scamdetector.R
@@ -14,8 +15,9 @@ import timber.log.Timber
 class ScanMessageActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityScanMessageBinding
-    var scam = ScanResultModel()
-    lateinit var app: ScamDetectorApp
+    private lateinit var app: ScamDetectorApp
+
+    private var scan = ScanResultModel()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -27,43 +29,42 @@ class ScanMessageActivity : AppCompatActivity() {
 
         app = application as ScamDetectorApp
 
-        Timber.i("Scam Activity started...")
+        Timber.i("ScanMessageActivity started")
 
-        if (intent.hasExtra("scam_edit")) {
-            scam = intent.getParcelableExtra("scam_edit",
-                                                   ScanResultModel::class.java)!!
-            binding.scamTitle.setText(scam.title)
-            binding.description.setText(scam.description)
-        }
+        binding.analyzeButton.setOnClickListener {
+            Toast.makeText(
+                this,
+                "Analyzing message...",
+                Toast.LENGTH_SHORT
+            ).show()
 
-        binding.btnAdd.setOnClickListener {
-            scam.title = binding.scamTitle.text.toString()
-            scam.description = binding.description.text.toString()
-            if (!scam.title.isNullOrEmpty()) {
-                app.scams.create(scam.copy())
-                Timber.i("add Button Pressed: $scam")
+            scan.title = binding.messageInput.text.toString()
+
+            if (!scan.title.isNullOrEmpty()) {
+                app.scams.create(scan.copy())
+                Timber.i("Scan saved: $scan")
                 setResult(RESULT_OK)
                 finish()
-            }
-            else {
+            } else {
                 Snackbar
-                    .make(it,"Please Enter a title", Snackbar.LENGTH_LONG)
+                    .make(it, "Please enter a message to scan", Snackbar.LENGTH_LONG)
                     .show()
             }
         }
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
-        menuInflater.inflate(R.menu.menu_scan_history, menu)
+        menuInflater.inflate(R.menu.menu_add_scam, menu)
         return super.onCreateOptionsMenu(menu)
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        when (item.itemId) {
+        return when (item.itemId) {
             R.id.item_cancel -> {
                 finish()
+                true
             }
+            else -> super.onOptionsItemSelected(item)
         }
-        return super.onOptionsItemSelected(item)
     }
 }

@@ -5,4 +5,7 @@
     <string name="hint_scamDescription">Description </string>
     <string name="menu_addScam">Add</string>
     <string name="menu_cancelScam">Cancel</string>
+    <string name="hint_paste_message">Paste suspicious message here</string>
+    <string name="button_analyse_scam">Analyse Scam</string>
+    <string name="prompt_enter_message">Please Enter a message to scan</string>
 </resources>

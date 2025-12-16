@@ -37,48 +37,31 @@
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="48dp"
+                android:layout_height="wrap_content"
                 android:orientation="vertical">
 
                 <EditText
-                    android:id="@+id/scamTitle"
+                    android:id="@+id/messageInput"
                     android:layout_width="match_parent"
-                    android:layout_height="48dp"
+                    android:layout_height="wrap_content"
                     android:layout_margin="8dp"
-                    android:autofillHints=""
-                    android:hint="@string/hint_scamTitle"
-                    android:inputType="text"
-                    android:maxLength="25"
-                    android:maxLines="1"
+                    android:gravity="top"
+                    android:hint="@string/hint_paste_message"
+                    android:autofillHints="other"
+                    android:inputType="textMultiLine"
+                    android:minLines="4"
                     android:padding="8dp"
                     android:textColor="@color/colorPrimaryDark"
-                    android:textSize="14sp"
-                    tools:ignore="VisualLintTextFieldSize" />
-
-                <EditText
-                    android:id="@+id/description"
-                    android:layout_width="match_parent"
-                    android:layout_height="48dp"
-                    android:layout_margin="8dp"
-                    android:hint="@string/hint_scamDescription"
-                    android:importantForAutofill="no"
-                    android:inputType="text"
-                    android:maxLength="25"
-                    android:maxLines="1"
-                    android:padding="8dp"
-                    android:textColor="@color/colorPrimaryDark"
-                    android:textSize="14sp"
-                    tools:ignore="VisualLintTextFieldSize" />
-
+                    android:textSize="14sp" />
                 <Button
-                    android:id="@+id/btnAdd"
+                    android:id="@+id/analyzeButton"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_margin="16dp"
                     android:background="@color/colorAccent"
                     android:padding="8dp"
                     android:stateListAnimator="@null"
-                    android:text="@string/button_addScam"
+                    android:text="@string/button_analyse_scam"
                     android:textColor="@color/colorPrimary"
                     android:textSize="16sp"
                     tools:ignore="VisualLintButtonSize" />
