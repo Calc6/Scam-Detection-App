@@ -43,10 +43,22 @@ class ScanMessageActivity : AppCompatActivity() {
                 } else {
                     binding.resultLabel.text = "Likely Safe (${result.score}%)"
                 }
+
                 binding.reasonsLabel.text = result.reasons.joinToString(
                     separator = "\n• ",
                     prefix = "• "
                 )
+                val scanResult = ScanResultModel().apply {
+                    title = message
+                    score = result.score
+                    isScam = result.isScam
+                }
+
+                app.scams.create(scanResult)
+
+                setResult(RESULT_OK)
+                finish()
+
             } else {
                 Snackbar
                     .make(it, "Please enter a message to scan", Snackbar.LENGTH_LONG)
