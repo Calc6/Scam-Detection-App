@@ -21,9 +21,26 @@ class ScanMessageActivity : AppCompatActivity() {
     private var scan = ScanResultModel()
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        val editScam = intent.getParcelableExtra<ScanResultModel>("scam_edit")
         super.onCreate(savedInstanceState)
 
         binding = ActivityScanMessageBinding.inflate(layoutInflater)
+        if (editScam != null) {
+            binding.messageInput.setText(editScam.title)
+            binding.messageInput.isEnabled = false
+            binding.analyzeButton.isEnabled = false
+            binding.analyzeButton.text = "Already Analysed"
+
+            // Show result
+            if (editScam.isScam) {
+                binding.resultLabel.text = "Likely Scam (${editScam.score}%)"
+            } else {
+                binding.resultLabel.text = "Likely Safe (${editScam.score}%)"
+            }
+
+            binding.reasonsLabel.text = editScam.description ?: ""
+            return
+        }
         setContentView(binding.root)
         binding.toolbarAdd.title = title
         setSupportActionBar(binding.toolbarAdd)
