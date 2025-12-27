@@ -17,7 +17,7 @@
             android:id="@+id/appBarLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/colorAccent"
+            android:background="@color/redPrimary"
             android:fitsSystemWindows="true"
             app:elevation="0dip"
             app:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
@@ -53,18 +53,19 @@
                     android:padding="8dp"
                     android:textColor="@color/colorPrimaryDark"
                     android:textSize="14sp" />
-                <Button
+
+                <com.google.android.material.button.MaterialButton
                     android:id="@+id/analyzeButton"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_margin="16dp"
-                    android:background="@color/colorAccent"
-                    android:padding="8dp"
-                    android:stateListAnimator="@null"
                     android:text="@string/button_analyse_scam"
-                    android:textColor="@color/colorPrimary"
+                    android:textColor="@android:color/white"
                     android:textSize="16sp"
-                    tools:ignore="VisualLintButtonSize" />
+                    android:backgroundTint="@color/redPrimary"
+                    app:cornerRadius="0dp"
+                    android:padding="8dp"
+                    android:stateListAnimator="@null" />
 
                 <TextView
                     android:id="@+id/resultLabel"
