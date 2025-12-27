@@ -5,4 +5,12 @@
     <color name="colorPrimary">#FFFFFF</color>
     <color name="colorPrimaryDark">#000000</color>
     <color name="colorAccent">#026E8E</color>
+    <color name="redPrimary">#C62828</color>      <!-- Dark red -->
+    <color name="redPrimaryDark">#8E0000</color>
+    <color name="redAccent">#FF5252</color>
+
+    <color name="backgroundLight">#FFF5F5</color>
+    <color name="surfaceWhite">#FFFFFF</color>
+    <color name="textPrimary">#212121</color>
+    <color name="textSecondary">#757575</color>
 </resources>
