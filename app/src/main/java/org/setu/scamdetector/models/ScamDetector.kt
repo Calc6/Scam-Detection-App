@@ -12,11 +12,9 @@ object ScamDetector {
 
         val matchedKeywords = scamKeywords.filter { lower.contains(it) }
         val hasLink = lower.contains("http://") || lower.contains("https://")
-
         var score = 0
         score += matchedKeywords.size * 15
         if (hasLink) score += 30
-
         if (score > 100) score = 100
 
         val isScam = score >= 60

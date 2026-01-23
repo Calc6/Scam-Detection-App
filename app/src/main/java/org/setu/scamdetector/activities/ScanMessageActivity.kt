@@ -41,7 +41,6 @@ class ScanMessageActivity : AppCompatActivity() {
 
             binding.messageInput.setText(scan.title)
             binding.messageInput.isEnabled = false
-
             binding.analyzeButton.isEnabled = false
             binding.analyzeButton.text = "Already Analysed"
 
@@ -69,7 +68,7 @@ class ScanMessageActivity : AppCompatActivity() {
 
                 binding.reasonsLabel.text = result.reasons.joinToString(
                     separator = "\n• ",
-                    prefix = "• "
+                    prefix = ""
                 )
 
                 scan = ScanResultModel(
