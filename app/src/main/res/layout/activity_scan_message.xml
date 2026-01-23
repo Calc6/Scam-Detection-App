@@ -40,6 +40,13 @@
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
 
+                <Button
+                    android:id="@+id/uploadScreenshotButton"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Upload Screenshot"
+                    android:layout_marginBottom="12dp" />
+
                 <EditText
                     android:id="@+id/messageInput"
                     android:layout_width="match_parent"
