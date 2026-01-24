@@ -11,6 +11,8 @@ import org.setu.scamdetector.main.ScamDetectorApp
 import org.setu.scamdetector.models.ScamDetector
 import org.setu.scamdetector.models.ScanResultModel
 import timber.log.Timber
+import android.net.Uri
+import androidx.activity.result.contract.ActivityResultContracts
 
 class ScanMessageActivity : AppCompatActivity() {
 
@@ -20,11 +22,24 @@ class ScanMessageActivity : AppCompatActivity() {
     private var isViewMode = false
     private var scan = ScanResultModel()
 
+    private var selectedImageUri: Uri? = null
+
+    private val pickImageLauncher =
+        registerForActivityResult(ActivityResultContracts.GetContent()) { uri: Uri? ->
+            if (uri != null) {
+                selectedImageUri = uri
+                Snackbar.make(binding.root, "screenshot selected", Snackbar.LENGTH_SHORT).show()
+            }
+        }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         binding = ActivityScanMessageBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        binding.uploadScreenshotButton.setOnClickListener {
+            pickImageLauncher.launch("image/*")
+        }
 
         binding.toolbarAdd.title = title
         setSupportActionBar(binding.toolbarAdd)
