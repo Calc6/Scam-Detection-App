@@ -13,6 +13,9 @@ import org.setu.scamdetector.models.ScanResultModel
 import timber.log.Timber
 import android.net.Uri
 import androidx.activity.result.contract.ActivityResultContracts
+import com.google.mlkit.vision.common.InputImage
+import com.google.mlkit.vision.text.TextRecognition
+import com.google.mlkit.vision.text.latin.TextRecognizerOptions
 
 class ScanMessageActivity : AppCompatActivity() {
 
@@ -29,6 +32,7 @@ class ScanMessageActivity : AppCompatActivity() {
             if (uri != null) {
                 selectedImageUri = uri
                 Snackbar.make(binding.root, "screenshot selected", Snackbar.LENGTH_SHORT).show()
+                runOcrFromUri(uri)
             }
         }
 
@@ -100,6 +104,31 @@ class ScanMessageActivity : AppCompatActivity() {
             } else {
                 Snackbar.make(it, "Please enter a message to scan", Snackbar.LENGTH_LONG).show()
             }
+        }
+    }
+
+    private fun runOcrFromUri(uri: Uri) {
+        try {
+            val image = InputImage.fromFilePath(this, uri)
+            val recognizer = TextRecognition.getClient(TextRecognizerOptions.DEFAULT_OPTIONS)
+
+            recognizer.process(image)
+                .addOnSuccessListener { visionText ->
+                    val extractedText = visionText.text.trim()
+
+                    if (extractedText.isNotEmpty()) {
+                        binding.messageInput.setText(extractedText)
+                        Snackbar.make(binding.root, "Text extracted from screenshot", Snackbar.LENGTH_SHORT).show()
+                    } else {
+                        Snackbar.make(binding.root, "No text found in image", Snackbar.LENGTH_SHORT).show()
+                    }
+                }
+                .addOnFailureListener { e ->
+                    Snackbar.make(binding.root, "OCR failed: ${e.message}", Snackbar.LENGTH_LONG).show()
+                }
+
+        } catch (e: Exception) {
+            Snackbar.make(binding.root, "Could not read image: ${e.message}", Snackbar.LENGTH_LONG).show()
         }
     }
 
