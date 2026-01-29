@@ -114,7 +114,7 @@ class ScanMessageActivity : AppCompatActivity() {
 
             recognizer.process(image)
                 .addOnSuccessListener { visionText ->
-                    val extractedText = visionText.text.trim()
+                    val extractedText = cleanOcrText(visionText.text)
 
                     if (extractedText.isNotEmpty()) {
                         binding.messageInput.setText(extractedText)
@@ -130,6 +130,15 @@ class ScanMessageActivity : AppCompatActivity() {
         } catch (e: Exception) {
             Snackbar.make(binding.root, "Could not read image: ${e.message}", Snackbar.LENGTH_LONG).show()
         }
+    }
+
+    private fun cleanOcrText(raw: String): String {
+        return raw
+            .replace("\r", "\n")                 // normalise newlines
+            .replace(Regex("\n+"), "\n")         // collapse multiple newlines
+            .replace(Regex("[ \\t]+"), " ")      // collapse spaces/tabs
+            .replace(Regex(" *\n *"), "\n")      // trim spaces around newlines
+            .trim()
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
