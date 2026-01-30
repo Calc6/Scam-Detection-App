@@ -113,6 +113,7 @@ class ScanMessageActivity : AppCompatActivity() {
 
     private fun runOcrFromUri(uri: Uri) {
         showOcrLoading()
+
         try {
             val image = InputImage.fromFilePath(this, uri)
             val recognizer = TextRecognition.getClient(TextRecognizerOptions.DEFAULT_OPTIONS)
@@ -120,22 +121,42 @@ class ScanMessageActivity : AppCompatActivity() {
             recognizer.process(image)
                 .addOnSuccessListener { visionText ->
                     hideOcrLoading()
+
                     val extractedText = cleanOcrText(visionText.text)
 
                     if (extractedText.isNotEmpty()) {
                         binding.messageInput.setText(extractedText)
-                        Snackbar.make(binding.root, "Text extracted from screenshot", Snackbar.LENGTH_SHORT).show()
+                        Snackbar.make(
+                            binding.root,
+                            "Text extracted from screenshot",
+                            Snackbar.LENGTH_SHORT
+                        ).show()
                     } else {
-                        Snackbar.make(binding.root, "No text found in image", Snackbar.LENGTH_SHORT).show()
+                        Snackbar.make(
+                            binding.root,
+                            "No readable text found. Try a clearer screenshot or paste the message manually.",
+                            Snackbar.LENGTH_LONG
+                        ).show()
+
+                        binding.messageInput.requestFocus()
                     }
                 }
                 .addOnFailureListener { e ->
                     hideOcrLoading()
-                    Snackbar.make(binding.root, "OCR failed: ${e.message}", Snackbar.LENGTH_LONG).show()
+                    Snackbar.make(
+                        binding.root,
+                        "OCR failed: ${e.localizedMessage}",
+                        Snackbar.LENGTH_LONG
+                    ).show()
                 }
 
         } catch (e: Exception) {
-            Snackbar.make(binding.root, "Could not read image: ${e.message}", Snackbar.LENGTH_LONG).show()
+            hideOcrLoading()
+            Snackbar.make(
+                binding.root,
+                "Could not read image: ${e.localizedMessage}",
+                Snackbar.LENGTH_LONG
+            ).show()
         }
     }
 
