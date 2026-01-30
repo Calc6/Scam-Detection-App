@@ -31,7 +31,10 @@ class ScanMessageActivity : AppCompatActivity() {
         registerForActivityResult(ActivityResultContracts.GetContent()) { uri: Uri? ->
             if (uri != null) {
                 selectedImageUri = uri
-                Snackbar.make(binding.root, "screenshot selected", Snackbar.LENGTH_SHORT).show()
+                binding.screenshotPreview.setImageURI(uri)
+                binding.screenshotPreview.visibility = android.view.View.VISIBLE
+
+                Snackbar.make(binding.root, "Screenshot selected", Snackbar.LENGTH_SHORT).show()
                 runOcrFromUri(uri)
             }
         }
