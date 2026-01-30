@@ -47,6 +47,17 @@
                     android:text="Upload Screenshot"
                     android:layout_marginBottom="12dp" />
 
+                <ImageView
+                    android:id="@+id/screenshotPreview"
+                    android:layout_width="match_parent"
+                    android:layout_height="180dp"
+                    android:layout_marginTop="12dp"
+                    android:layout_marginBottom="12dp"
+                    android:scaleType="centerCrop"
+                    android:adjustViewBounds="true"
+                    android:visibility="gone"
+                    android:contentDescription="Selected screenshot preview" />
+
                 <EditText
                     android:id="@+id/messageInput"
                     android:layout_width="match_parent"
