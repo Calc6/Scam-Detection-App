@@ -12,6 +12,7 @@ import org.setu.scamdetector.models.ScamDetector
 import org.setu.scamdetector.models.ScanResultModel
 import timber.log.Timber
 import android.net.Uri
+import android.view.View
 import androidx.activity.result.contract.ActivityResultContracts
 import com.google.mlkit.vision.common.InputImage
 import com.google.mlkit.vision.text.TextRecognition
@@ -111,12 +112,14 @@ class ScanMessageActivity : AppCompatActivity() {
     }
 
     private fun runOcrFromUri(uri: Uri) {
+        showOcrLoading()
         try {
             val image = InputImage.fromFilePath(this, uri)
             val recognizer = TextRecognition.getClient(TextRecognizerOptions.DEFAULT_OPTIONS)
 
             recognizer.process(image)
                 .addOnSuccessListener { visionText ->
+                    hideOcrLoading()
                     val extractedText = cleanOcrText(visionText.text)
 
                     if (extractedText.isNotEmpty()) {
@@ -127,6 +130,7 @@ class ScanMessageActivity : AppCompatActivity() {
                     }
                 }
                 .addOnFailureListener { e ->
+                    hideOcrLoading()
                     Snackbar.make(binding.root, "OCR failed: ${e.message}", Snackbar.LENGTH_LONG).show()
                 }
 
@@ -142,6 +146,14 @@ class ScanMessageActivity : AppCompatActivity() {
             .replace(Regex("[ \\t]+"), " ")      // collapse spaces/tabs
             .replace(Regex(" *\n *"), "\n")      // trim spaces around newlines
             .trim()
+    }
+
+    private fun showOcrLoading() {
+        binding.ocrLoadingContainer.visibility = View.VISIBLE
+    }
+
+    private fun hideOcrLoading() {
+        binding.ocrLoadingContainer.visibility = View.GONE
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
