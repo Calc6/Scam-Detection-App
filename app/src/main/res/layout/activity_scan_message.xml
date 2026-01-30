@@ -58,6 +58,29 @@
                     android:visibility="gone"
                     android:contentDescription="Selected screenshot preview" />
 
+                <LinearLayout
+                    android:id="@+id/ocrLoadingContainer"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical"
+                    android:layout_marginBottom="12dp"
+                    android:visibility="gone">
+
+                    <ProgressBar
+                        android:id="@+id/ocrProgress"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+
+                    <TextView
+                        android:id="@+id/ocrLoadingText"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="12dp"
+                        android:text="Extracting text..."
+                        android:textSize="14sp" />
+                </LinearLayout>
+
                 <EditText
                     android:id="@+id/messageInput"
                     android:layout_width="match_parent"
