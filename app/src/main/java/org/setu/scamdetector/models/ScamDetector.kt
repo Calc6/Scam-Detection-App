@@ -4,7 +4,8 @@ object ScamDetector {
 
     private val scamKeywords = listOf(
         "urgent", "verify", "click", "account",
-        "suspended", "bank", "password", "login"
+        "suspended", "bank", "password", "login", "ATTENTION","fine",
+        "log", "https", "You","have","for"
     )
 
     fun analyzeMessage(message: String): ScamAnalysisResult {
