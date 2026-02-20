@@ -1,14 +1,19 @@
 pluginManagement {
     repositories {
         maven { url = uri("https://chaquo.com/maven") }
-        google {
-            content {
-                includeGroupByRegex("com\\.android.*")
-                includeGroupByRegex("com\\.google.*")
-                includeGroupByRegex("androidx.*")
-            }
-        }
+        google()
         mavenCentral()
         gradlePluginPortal()
     }
 }
+
+dependencyResolutionManagement {
+    repositories {
+        maven { url = uri("https://chaquo.com/maven") }
+        google()
+        mavenCentral()
+    }
+}
+
+rootProject.name = "ScamDetectorApp"
+include(":app")
