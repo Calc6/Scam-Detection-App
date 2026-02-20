@@ -1,23 +1,23 @@
 plugins {
-    alias(libs.plugins.android.application)
-    alias(libs.plugins.kotlin.android)
-    alias(libs.plugins.kotlin.parcelize)
+    id("com.android.application")
+    id("org.jetbrains.kotlin.android")
+    id("org.jetbrains.kotlin.plugin.parcelize")
 }
 
-android {
+
+android
     namespace = "org.setu.scamdetector"
     compileSdk = 36
-    
+
     defaultConfig {
         applicationId = "org.setu.scamdetector"
         minSdk = 30
         targetSdk = 36
         versionCode = 1
         versionName = "1.0"
-        
+
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
-    
     buildTypes {
         release {
             isMinifyEnabled = false
@@ -48,7 +48,7 @@ dependencies {
     implementation(libs.androidx.constraintlayout)
     implementation(libs.timber)
     implementation("com.google.mlkit:text-recognition:16.0.0")
-    testImplementation(libs.junit)
+testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
 }
