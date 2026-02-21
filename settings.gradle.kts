@@ -9,11 +9,10 @@ pluginManagement {
 
 dependencyResolutionManagement {
     repositories {
-        maven { url = uri("https://chaquo.com/maven") }
         google()
         mavenCentral()
+        maven { url = uri("https://jitpack.io") }
     }
 }
-
 rootProject.name = "ScamDetectorApp"
 include(":app")

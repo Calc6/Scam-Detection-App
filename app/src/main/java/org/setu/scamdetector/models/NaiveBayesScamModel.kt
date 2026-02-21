@@ -15,7 +15,7 @@ class NaiveBayesScamModel(private val context: Context) {
     private var featureLogProb: Array<FloatArray>? = null
 
     fun loadIfNeeded() {
-        if (vocab != null) return
+        if (vocab != null && classLogPrior != null) return
 
         val vocabJson = context.assets.open("vocab.json").use { input ->
             BufferedReader(InputStreamReader(input)).readText()
